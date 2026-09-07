@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="../../mini project2/EMS.DAL/EMS.DAL.csproj" />
+  <Project Path="EMS.DAL/EMS.DAL.csproj" />
   <Project Path="EMS.API/EMS.API.csproj" />
   <Project Path="EMS.Services/EMS.Services.csproj" />
   <Project Path="EMS.Tests/EMS.Tests.csproj" />
