@@ -1,658 +1,486 @@
-\# Virtual Event Management System
+# Virtual Event Management System
 
+A full-stack **Virtual Event Management System** built with **ASP.NET Core Web API** and **Angular**.
 
+The application provides a centralized platform for managing events, participants, speakers, and event sessions, with **JWT-based authentication and authorization**.
 
-A full-stack event management application built with \*\*ASP.NET Core Web API\*\* and \*\*Angular\*\*. The system provides authentication, event management, participant management, speaker assignment, and session management through a structured REST API and modern web interface.
+---
 
+## Tech Stack
 
+<p align="center">
 
-\## Features
+![C#](https://img.shields.io/badge/C%23-ASP.NET%20Core-512BD4?style=for-the-badge\&logo=csharp\&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-ASP.NET%20Core-512BD4?style=for-the-badge\&logo=dotnet\&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-TypeScript-DD0031?style=for-the-badge\&logo=angular\&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-Database-CC2927?style=for-the-badge\&logo=microsoftsqlserver\&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge\&logo=jsonwebtokens\&logoColor=white)
 
+</p>
 
+| Layer             | Technology                       |
+| ----------------- | -------------------------------- |
+| Frontend          | Angular, TypeScript, HTML5, CSS3 |
+| Backend           | ASP.NET Core Web API, C#         |
+| Authentication    | JWT                              |
+| Database          | Microsoft SQL Server             |
+| ORM / Data Access | Entity Framework Core            |
+| API Style         | REST                             |
+| Version Control   | Git & GitHub                     |
+| IDE               | Visual Studio / VS Code          |
 
-\### Authentication \& Authorization
+---
 
+## Features
 
+### Authentication
 
-\* User registration and login
+* User registration
+* User login
+* JWT-based authentication
+* Protected API endpoints
+* Angular authentication guard
+* JWT HTTP interceptor
+* Role-based authorization
 
-\* JWT-based authentication
+### Event Management
 
-\* Role-based authorization
+* Create events
+* View events
+* View event details
+* Update events
+* Delete events
 
-\* Protected API endpoints
+### Participant Management
 
-\* JWT interceptor on the Angular frontend
+* Manage event participants
+* Participant-related event operations
+* Protected participant endpoints
 
+### Speaker Management
 
+* Manage speakers
+* View speaker information
+* Assign speakers to sessions/events
 
-\### Event Management
+### Session Management
 
+* Create sessions
+* View sessions
+* View session details
+* Update session information
+* Delete sessions
+* Speaker/session association
 
+---
 
-\* Create and manage events
+# Architecture
 
-\* View event details
-
-\* Update event information
-
-\* Delete events
-
-\* Event listing and details pages
-
-
-
-\### Participant Management
-
-
-
-\* Manage event participants
-
-\* Register participants for events
-
-\* View participant-related information
-
-
-
-\### Speaker Management
-
-
-
-\* Manage speakers
-
-\* Assign speakers to events/sessions
-
-\* View speaker information
-
-
-
-\### Session Management
-
-
-
-\* Create and manage event sessions
-
-\* View session details
-
-\* Associate sessions with speakers/events
-
-
-
-\### Frontend
-
-
-
-\* Angular-based single-page application
-
-\* Component-based architecture
-
-\* Angular routing
-
-\* Route guards
-
-\* HTTP services for API communication
-
-\* JWT authentication interceptor
-
-\* Responsive user interface
-
-
-
-\## Tech Stack
-
-
-
-\### Backend
-
-
-
-\* \*\*ASP.NET Core Web API\*\*
-
-\* \*\*C#\*\*
-
-\* \*\*.NET\*\*
-
-\* RESTful APIs
-
-\* JWT Authentication
-
-\* Middleware
-
-\* Service-based architecture
-
-
-
-\### Frontend
-
-
-
-\* \*\*Angular\*\*
-
-\* TypeScript
-
-\* HTML5
-
-\* CSS3
-
-\* Angular Router
-
-\* Angular HTTP Client
-
-
-
-\### Database
-
-
-
-\* \*\*Microsoft SQL Server\*\*
-
-\* Entity Framework Core
-
-
-
-\### Development Tools
-
-
-
-\* Visual Studio
-
-\* Visual Studio Code
-
-\* Git
-
-\* GitHub
-
-
-
-\## Project Structure
-
-
+The application follows a **frontend–API–service–database architecture**, keeping the Angular presentation layer separate from the ASP.NET Core API and business logic.
 
 ```text
+┌─────────────────────────────────────────────────────────────┐
+│                       Angular Frontend                      │
+│                                                             │
+│  Components → Services → HTTP Client → JWT Interceptor     │
+│                         │                                   │
+│                    Route Guards                             │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          │ HTTP / REST API
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    ASP.NET Core Web API                     │
+│                                                             │
+│  Controllers                                                │
+│      │                                                      │
+│      ▼                                                      │
+│  Service Interfaces                                         │
+│      │                                                      │
+│      ▼                                                      │
+│  Business Services                                          │
+│      │                                                      │
+│      ▼                                                      │
+│  Data Access Layer / EF Core                                │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          │ SQL
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      SQL Server                             │
+└─────────────────────────────────────────────────────────────┘
+```
 
+---
+
+# Project Structure
+
+```text
 Virtual-Event-Management-System/
-
 │
-
 ├── Backend/
-
+│   │
 │   ├── EMS.API/
-
 │   │   ├── Controllers/
-
+│   │   │   ├── AuthController.cs
+│   │   │   ├── EventsController.cs
+│   │   │   ├── ParticipantController.cs
+│   │   │   ├── SessionsController.cs
+│   │   │   └── SpeakersController.cs
+│   │   │
 │   │   ├── Middleware/
-
+│   │   │   └── ExceptionMiddleware.cs
+│   │   │
 │   │   ├── Properties/
-
+│   │   │   └── launchSettings.json
+│   │   │
 │   │   ├── Program.cs
-
 │   │   ├── appsettings.json
-
 │   │   └── EMS.API.csproj
-
 │   │
-
 │   ├── EMS.Services/
-
 │   │   ├── Common/
-
 │   │   ├── DTOs/
-
 │   │   ├── Interfaces/
-
 │   │   ├── Services/
-
 │   │   └── EMS.Services.csproj
-
 │   │
-
 │   └── EMS.slnx
-
 │
-
 ├── Frontend/
-
+│   │
 │   └── ems-frontend/
-
 │       ├── src/
-
 │       │   └── app/
-
 │       │       ├── components/
-
+│       │       │   ├── dashboard/
+│       │       │   ├── events/
+│       │       │   ├── home/
+│       │       │   ├── login/
+│       │       │   ├── navbar/
+│       │       │   ├── register/
+│       │       │   ├── sessions/
+│       │       │   └── speakers/
+│       │       │
 │       │       ├── guards/
-
 │       │       ├── interceptors/
-
 │       │       ├── models/
-
 │       │       └── services/
-
+│       │
 │       ├── public/
-
 │       ├── angular.json
-
 │       ├── package.json
-
 │       └── package-lock.json
-
 │
-
 ├── LICENSE
-
 ├── README.md
-
 └── .gitignore
-
 ```
 
+---
 
+# Backend API
 
-\## Backend API
+The backend is implemented using **ASP.NET Core Web API**.
 
+## API Controllers
 
+| Controller              | Responsibility                  |
+| ----------------------- | ------------------------------- |
+| `AuthController`        | Registration and authentication |
+| `EventsController`      | Event management                |
+| `ParticipantController` | Participant management          |
+| `SessionsController`    | Session management              |
+| `SpeakersController`    | Speaker management              |
 
-The backend follows a layered structure separating API controllers, service interfaces, DTOs, and business logic.
+### API Base Routes
 
+| Resource       | Route              |
+| -------------- | ------------------ |
+| Authentication | `/api/auth`        |
+| Events         | `/api/events`      |
+| Participants   | `/api/participant` |
+| Sessions       | `/api/sessions`    |
+| Speakers       | `/api/speakers`    |
 
+> Exact HTTP operations and parameters are defined in the respective controller implementations.
 
-\### Controllers
+---
 
+# Authentication Flow
 
-
-The API currently includes controllers for:
-
-
-
-\* Authentication
-
-\* Events
-
-\* Participants
-
-\* Sessions
-
-\* Speakers
-
-
-
-Example API routes include:
-
-
+JWT is used to secure authenticated API requests.
 
 ```text
-
-/api/auth
-
-/api/events
-
-/api/participants
-
-/api/sessions
-
-/api/speakers
-
+┌──────────────┐
+│    User      │
+└──────┬───────┘
+       │
+       │ Login
+       ▼
+┌──────────────────────┐
+│ Angular Login        │
+│ Component            │
+└──────────┬───────────┘
+           │
+           │ HTTP Request
+           ▼
+┌──────────────────────┐
+│ ASP.NET Core API     │
+│ AuthController       │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Authentication       │
+│ Service              │
+└──────────┬───────────┘
+           │
+           │ JWT
+           ▼
+┌──────────────────────┐
+│ Angular              │
+│ Authentication       │
+└──────────┬───────────┘
+           │
+           │ Authorization: Bearer <token>
+           ▼
+┌──────────────────────┐
+│ Protected API        │
+│ Endpoints             │
+└──────────────────────┘
 ```
 
+The Angular application uses:
 
+* `auth.service.ts`
+* `auth-guard.ts`
+* `jwt-interceptor.ts`
 
-\## Authentication
+to manage authentication and protected requests.
 
+---
 
+# Frontend
 
-The application uses \*\*JWT (JSON Web Token)\*\* authentication.
+The frontend is built using Angular and follows a component/service-based structure.
 
+### Major Angular Modules
 
+| Area           | Components                                  |
+| -------------- | ------------------------------------------- |
+| Authentication | Login, Register                             |
+| Events         | Event List, Event Details, Event Form       |
+| Sessions       | Session List, Session Details, Session Form |
+| Speakers       | Speaker                                     |
+| General        | Home, Dashboard, Navbar                     |
 
-The general authentication flow is:
+The frontend communicates with the ASP.NET Core backend through Angular services.
 
+---
 
+# Backend Services
+
+The `EMS.Services` project contains the application's service layer.
+
+### Service Interfaces
 
 ```text
-
-User
-
-&#x20; │
-
-&#x20; ▼
-
-Angular Login
-
-&#x20; │
-
-&#x20; ▼
-
-ASP.NET Core API
-
-&#x20; │
-
-&#x20; ▼
-
-Authentication Service
-
-&#x20; │
-
-&#x20; ▼
-
-JWT Token
-
-&#x20; │
-
-&#x20; ▼
-
-Angular Token Storage
-
-&#x20; │
-
-&#x20; ▼
-
-JWT Interceptor
-
-&#x20; │
-
-&#x20; ▼
-
-Authenticated API Requests
-
+IAuthService
+IEventService
+IParticipantService
+ISessionService
+ISpeakerService
 ```
 
+### Service Implementations
 
+```text
+AuthService
+EventService
+ParticipantService
+SessionService
+SpeakerService
+```
 
-Protected routes are handled through Angular route guards and authenticated API requests include the JWT through the HTTP interceptor.
+DTOs are used to transfer structured request/response data between the API and application layers.
 
+---
 
+# Getting Started
 
-\## Getting Started
+## Prerequisites
 
+Install the following before running the project:
 
+* [.NET SDK](https://dotnet.microsoft.com/download)
+* [Node.js](https://nodejs.org/)
+* Angular CLI
+* SQL Server / SQL Server LocalDB
+* Git
+* Visual Studio or VS Code
 
-\### Prerequisites
+---
 
-
-
-Make sure the following are installed:
-
-
-
-\* .NET SDK
-
-\* Node.js
-
-\* npm
-
-\* Angular CLI
-
-\* SQL Server or SQL Server LocalDB
-
-\* Visual Studio or Visual Studio Code
-
-\* Git
-
-
-
-\### Clone the Repository
-
-
+## Clone the Repository
 
 ```bash
-
 git clone https://github.com/gauharanas/Virtual-Event-Management-System.git
-
 ```
 
-
-
-Navigate into the project:
-
-
-
 ```bash
-
 cd Virtual-Event-Management-System
-
 ```
 
+---
 
+# Running the Backend
 
-\## Running the Backend
-
-
-
-Navigate to the backend:
-
-
+Navigate to the backend directory:
 
 ```bash
-
 cd Backend
-
 ```
 
-
-
-Restore the .NET dependencies:
-
-
+Restore dependencies:
 
 ```bash
-
 dotnet restore
-
 ```
-
-
 
 Run the API:
 
-
-
 ```bash
-
 dotnet run --project EMS.API
-
 ```
-
-
 
 The API will start using the configured ASP.NET Core development settings.
 
+### Local Configuration
 
-
-\### Configuration
-
-
-
-For local development, configure the database connection string and JWT settings in:
-
-
+For local development, configure your connection string and JWT settings in:
 
 ```text
-
 Backend/EMS.API/appsettings.Development.json
-
 ```
 
+This file should remain outside source control.
 
+---
 
-Do \*\*not\*\* commit production credentials, database passwords, or JWT secrets to GitHub.
-
-
-
-\## Running the Frontend
-
-
+# Running the Frontend
 
 Open another terminal and navigate to:
 
-
-
 ```bash
-
 cd Frontend/ems-frontend
-
 ```
-
-
 
 Install dependencies:
 
-
-
 ```bash
-
 npm install
-
 ```
-
-
 
 Start the Angular development server:
 
-
-
 ```bash
-
 ng serve
-
 ```
 
+Open the local URL displayed by Angular.
 
+---
 
-Then open the URL shown by Angular in your browser.
+# Configuration
 
+The repository intentionally does not contain local development secrets.
 
+Typical development configuration includes:
 
-\## Development Workflow
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "your-connection-string"
+  },
+  "Jwt": {
+    "Key": "your-development-secret",
+    "Issuer": "EMS_API",
+    "Audience": "EMS_CLIENT"
+  }
+}
+```
 
+**Never commit real passwords, database credentials, API keys, or JWT secrets to GitHub.**
 
+---
+
+# Development Workflow
 
 ```text
-
-Frontend
-
-&#x20;  │
-
-&#x20;  │ HTTP Requests
-
-&#x20;  ▼
-
-Angular Services
-
-&#x20;  │
-
-&#x20;  ▼
-
-ASP.NET Core Web API
-
-&#x20;  │
-
-&#x20;  ▼
-
-Controllers
-
-&#x20;  │
-
-&#x20;  ▼
-
-Services
-
-&#x20;  │
-
-&#x20;  ▼
-
-Database
-
+              GitHub Repository
+                     │
+                     ▼
+             ┌───────────────┐
+             │    Angular    │
+             │   Frontend    │
+             └───────┬───────┘
+                     │
+                     │ REST / HTTP
+                     ▼
+             ┌───────────────┐
+             │ ASP.NET Core  │
+             │      API      │
+             └───────┬───────┘
+                     │
+                     ▼
+             ┌───────────────┐
+             │   Services    │
+             │ Business Logic│
+             └───────┬───────┘
+                     │
+                     ▼
+             ┌───────────────┐
+             │ SQL Server DB │
+             └───────────────┘
 ```
 
+---
 
+# Security
 
-\## Security
+The application incorporates:
 
+* JWT authentication
+* Authorization for protected endpoints
+* Angular route guards
+* JWT HTTP interceptor
+* Environment-specific configuration
+* Centralized exception middleware
 
+Development secrets and local configuration files are excluded from source control.
 
-The project uses several security mechanisms including:
+---
 
+# Repository
 
+**GitHub:**
+https://github.com/gauharanas/Virtual-Event-Management-System
 
-\* JWT authentication
+---
 
-\* Authorization for protected endpoints
+# License
 
-\* Password authentication
+This project is licensed under the **MIT License**.
 
-\* Angular route guards
+See the [`LICENSE`](LICENSE) file for more information.
 
-\* JWT HTTP interceptor
+---
 
-\* Environment-specific application configuration
+# Author
 
+### Anas Gauhar
 
+Full Stack Developer | Java | .NET | Angular
 
-Sensitive configuration should always remain outside source control.
-
-
-
-\## Testing
-
-
-
-The repository contains application source code for the backend and frontend.
-
-
-
-The `EMS.Tests` project is intentionally excluded from the GitHub repository.
-
-
-
-\## Future Improvements
-
-
-
-Potential future enhancements include:
-
-
-
-\* Event registration workflow
-
-\* Email notifications
-
-\* Event reminders
-
-\* Online event/live meeting integration
-
-\* Advanced search and filtering
-
-\* Pagination
-
-\* Admin dashboard
-
-\* Event analytics
-
-\* Cloud deployment
-
-\* Automated CI/CD pipeline
-
-\* Comprehensive unit and integration testing
-
-
-
-\## License
-
-
-
-This project is licensed under the \*\*MIT License\*\*. See the \[LICENSE](LICENSE) file for details.
-
-
-
-\## Author
-
-
-
-\*\*Anas Gauhar\*\*
-
-
-
-GitHub: https://github.com/gauharanas
-
-
-
+[GitHub](https://github.com/gauharanas)
