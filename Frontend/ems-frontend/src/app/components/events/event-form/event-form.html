@@ -1,0 +1,112 @@
+<div
+  *ngIf="successMessage"
+  class="alert alert-success">
+
+  {{ successMessage }}
+
+</div>
+<form
+  [formGroup]="eventForm"
+  (ngSubmit)="onSubmit()">
+
+  <div class="mb-3">
+
+    <label>Event Name</label>
+
+    <input
+      type="text"
+      class="form-control"
+      formControlName="eventName">
+
+  </div>
+
+  <div class="mb-3">
+
+    <label>Category</label>
+
+    <input
+      type="text"
+      class="form-control"
+      formControlName="eventCategory">
+
+  </div>
+
+  <div class="mb-3">
+
+    <label>Event Date</label>
+
+    <input
+      type="date"
+      class="form-control"
+      formControlName="eventDate">
+
+  </div>
+
+  <div class="mb-3">
+
+    <label>Status</label>
+
+    <select
+      class="form-select"
+      formControlName="status">
+
+      <option value="Upcoming">
+        Upcoming
+      </option>
+
+      <option value="Completed">
+        Completed
+      </option>
+
+      <option value="Cancelled">
+        Cancelled
+      </option>
+
+    </select>
+
+  </div>
+  
+ <div class="mb-3">
+
+    <label>Mode</label>
+
+    <select
+      class="form-select"
+      formControlName="mode">
+
+      <option value="offline">
+        Offline
+      </option>
+
+      <option value="Online">
+        Online
+      </option>
+
+      <option value="Hybrid">
+        Hybrid
+      </option>
+
+    </select>
+
+  </div>
+
+  <div class="mb-3">
+
+    <label>Description</label>
+
+    <textarea
+      class="form-control"
+      formControlName="description">
+
+    </textarea>
+
+  </div>
+
+  <button
+    class="btn btn-success">
+
+    Save Event
+
+  </button>
+
+</form>

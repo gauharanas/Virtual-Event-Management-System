@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="event" class="card shadow p-4">
+    <h2>
+      {{ event.eventName }}
+    </h2>
+
+    <p>
+      <strong>Category:</strong>
+
+      {{ event.eventCategory }}
+    </p>
+
+    <p>
+      <strong>Date:</strong>
+
+      {{ event.eventDate | date }}
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+
+      {{ event.status }}
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+
+      {{ event.description }}
+    </p>
+  </div>
+
+  <div class="mt-5">
+    <h3 class="mb-4">Sessions</h3>
+
+    <div *ngIf="sessions.length === 0" class="alert alert-info">No sessions available.</div>
+
+    <div class="card mb-3 shadow-sm" *ngFor="let session of sessions">
+      <div class="card-body">
+        <h5>
+          {{ session.sessionTitle }}
+        </h5>
+
+        <p>
+          {{ session.description }}
+        </p>
+
+        <p>
+          <strong>Start:</strong>
+
+          {{ session.sessionStart | date: 'medium' }}
+        </p>
+
+        <p>
+          <strong>End:</strong>
+
+          {{ session.sessionEnd | date: 'medium' }}
+        </p>
+
+        <p>
+          <strong>Speaker:</strong>
+
+          {{ session.speaker?.speakerName || 'Not Assigned' }}
+        </p>
+
+        <div *ngIf="session.sessionUrl">
+          <a [href]="session.sessionUrl" target="_blank" class="btn btn-primary"> Join Session </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

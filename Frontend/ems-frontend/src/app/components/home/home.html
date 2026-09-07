@@ -1,0 +1,73 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4 text-center">
+
+    Upcoming Events
+
+  </h2>
+
+  <div class="row">
+
+    <div
+      class="col-md-4 mb-4"
+      *ngFor="let event of events">
+
+      <div class="card h-100 shadow">
+
+        <div class="card-body">
+
+          <h5 class="card-title">
+
+            {{ event.eventName }}
+
+          </h5>
+
+          <p class="card-text">
+
+            <strong>Category:</strong>
+            {{ event.eventCategory }}
+
+          </p>
+
+          <p class="card-text">
+
+            <strong>Date:</strong>
+
+            {{ event.eventDate | date }}
+
+          </p>
+
+          <p class="card-text">
+
+            <strong>Status:</strong>
+
+            {{ event.status }}
+
+          </p>
+
+          <p class="card-text">
+
+            {{ event.description }}
+
+          </p>
+
+          <a
+            [routerLink]="[
+              '/events',
+              event.eventId
+            ]"
+            class="btn btn-primary">
+
+            View Details
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

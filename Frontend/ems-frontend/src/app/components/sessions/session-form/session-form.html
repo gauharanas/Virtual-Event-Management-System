@@ -1,0 +1,187 @@
+<div class="container mt-4">
+
+  <div
+    *ngIf="successMessage"
+    class="alert alert-success">
+
+    {{ successMessage }}
+
+  </div>
+
+  <div class="card p-4 shadow">
+
+    <h2 class="mb-4">
+
+      Add Session
+
+    </h2>
+
+    <form
+      [formGroup]="sessionForm"
+      (ngSubmit)="onSubmit()">
+
+      <!-- EVENT DROPDOWN -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Select Event
+
+        </label>
+
+        <select
+          class="form-select"
+          formControlName="eventId">
+
+          <option value="">
+
+            -- Select Event --
+
+          </option>
+
+          <option
+            *ngFor="let event of events"
+            [value]="event.eventId">
+
+            {{ event.eventName }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- SPEAKER DROPDOWN -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Select Speaker
+
+        </label>
+
+        <select
+          class="form-select"
+          formControlName="speakerId">
+
+          <option value="">
+
+            -- No Speaker --
+
+          </option>
+
+          <option
+            *ngFor="let speaker of speakers"
+            [value]="speaker.speakerId">
+
+            {{ speaker.speakerName }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- TITLE -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Session Title
+
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="sessionTitle" />
+
+      </div>
+
+      <!-- DESCRIPTION -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Description
+
+        </label>
+
+        <textarea
+          class="form-control"
+          formControlName="description">
+
+        </textarea>
+
+      </div>
+
+      <!-- START -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Start Time
+
+        </label>
+
+        <input
+          type="datetime-local"
+          class="form-control"
+          formControlName="sessionStart" />
+
+      </div>
+
+      <!-- END -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          End Time
+
+        </label>
+
+        <input
+          type="datetime-local"
+          class="form-control"
+          formControlName="sessionEnd" />
+
+      </div>
+
+      <!-- URL -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Session URL
+
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="sessionUrl" />
+
+      </div>
+
+      <!-- BUTTON -->
+
+      <button
+        class="btn btn-primary"
+        type="submit">
+
+        Save Session
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

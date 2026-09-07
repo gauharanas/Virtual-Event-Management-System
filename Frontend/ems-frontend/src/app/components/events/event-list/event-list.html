@@ -1,0 +1,164 @@
+<div class="container mt-4">
+
+  <div class="d-flex
+              justify-content-between
+              align-items-center
+              mb-3">
+
+    <h2>
+
+      Events
+
+    </h2>
+
+    <a
+      routerLink="/admin/events/add"
+      class="btn btn-primary">
+
+      Add Event
+
+    </a>
+
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger">
+
+    {{ errorMessage }}
+
+  </div>
+
+  <table
+    class="table table-bordered table-striped">
+
+    <thead class="table-dark">
+
+      <tr>
+
+        <th>ID</th>
+
+        <th>Name</th>
+
+        <th>Category</th>
+
+        <th>Date</th>
+
+        <th>Status</th>
+
+        <th>Description</th>
+
+        <th width="220">
+
+          Actions
+
+        </th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr *ngFor="let event of events">
+
+  <td>
+
+    {{ event.eventId }}
+
+  </td>
+
+  <td>
+
+    {{ event.eventName }}
+
+  </td>
+
+  <td>
+
+    {{ event.eventCategory }}
+
+  </td>
+
+  <td>
+
+    {{ event.eventDate | date }}
+
+  </td>
+
+  <td>
+
+    {{ event.status }}
+
+  </td>
+
+  <td>
+
+    {{ event.description }}
+
+  </td>
+
+  <td>
+
+    <a
+      [routerLink]="[
+        '/admin/events/edit',
+        event.eventId
+      ]"
+      class="btn btn-warning btn-sm me-2">
+
+      Edit
+
+    </a>
+
+    <button
+      class="btn btn-danger btn-sm"
+      (click)="deleteEvent(event.eventId!)">
+
+      Delete
+
+    </button>
+
+  </td>
+
+</tr>
+
+    </tbody>
+
+  </table>
+<div
+  class="d-flex
+         justify-content-center
+         mt-4">
+
+  <button
+    class="btn btn-secondary me-2"
+
+    [disabled]="
+      currentPage === 1
+      || isLoading
+    "
+
+    (click)="previousPage()">
+
+    Previous
+
+  </button>
+
+  <button
+    class="btn btn-primary"
+
+    [disabled]="
+      !hasNextPage
+      || isLoading
+    "
+
+    (click)="nextPage()">
+
+    Next
+
+  </button>
+
+</div>
+
+</div>

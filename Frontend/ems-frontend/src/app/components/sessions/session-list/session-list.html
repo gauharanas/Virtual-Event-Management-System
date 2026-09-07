@@ -1,0 +1,200 @@
+<div class="container mt-4">
+
+  <!-- HEADER -->
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>
+
+      Sessions
+
+    </h2>
+
+    <a
+      routerLink="/admin/sessions/add"
+      class="btn btn-primary">
+
+      Add Session
+
+    </a>
+
+  </div>
+
+  <!-- ERROR -->
+
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger">
+
+    {{ errorMessage }}
+
+  </div>
+
+  <!-- EMPTY -->
+
+  <div
+    *ngIf="sessions.length === 0"
+    class="alert alert-info">
+
+    No sessions available.
+
+  </div>
+
+  <!-- TABLE -->
+
+  <div
+    class="card shadow"
+    *ngIf="sessions.length > 0">
+
+    <div class="card-body">
+
+      <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+          <tr>
+
+            <th>
+
+              Title
+
+            </th>
+
+            <th>
+
+              Event
+
+            </th>
+
+            <th>
+
+              Speaker
+
+            </th>
+
+            <th>
+
+              Start
+
+            </th>
+
+            <th>
+
+              End
+
+            </th>
+
+            <th>
+
+              URL
+
+            </th>
+
+            <th width="180">
+
+              Actions
+
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let session of sessions">
+
+            <!-- TITLE -->
+
+            <td>
+
+              {{ session.sessionTitle }}
+
+            </td>
+
+            <!-- EVENT -->
+
+            <td>
+
+              {{ session.event?.eventName }}
+
+            </td>
+
+            <!-- SPEAKER -->
+
+            <td>
+
+              {{ session.speaker?.speakerName || 'Not Assigned' }}
+
+            </td>
+
+            <!-- START -->
+
+            <td>
+
+              {{ session.sessionStart | date:'medium' }}
+
+            </td>
+
+            <!-- END -->
+
+            <td>
+
+              {{ session.sessionEnd | date:'medium' }}
+
+            </td>
+
+            <!-- URL -->
+
+            <td>
+
+              <a
+                *ngIf="session.sessionUrl"
+                [href]="session.sessionUrl"
+                target="_blank">
+
+                Join
+
+              </a>
+
+              <span *ngIf="!session.sessionUrl">
+
+                -
+
+              </span>
+
+            </td>
+
+            <!-- ACTIONS -->
+
+            <td>
+
+              <button
+                class="btn btn-warning btn-sm me-2"
+                [routerLink]="['/admin/sessions/edit', session.sessionId]">
+
+                Edit
+
+              </button>
+
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteSession(session.sessionId)">
+
+                Delete
+
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

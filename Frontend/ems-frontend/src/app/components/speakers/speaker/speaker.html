@@ -1,0 +1,95 @@
+<div class="container mt-4">
+
+  <div
+    *ngIf="successMessage"
+    class="alert alert-success">
+
+    {{ successMessage }}
+
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger">
+
+    {{ errorMessage }}
+
+  </div>
+
+  <div class="card shadow p-4 mb-4">
+
+    <h3 class="mb-3">
+      Add Speaker
+    </h3>
+
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="Speaker Name"
+      [(ngModel)]="speakerName">
+
+    <button
+      class="btn btn-primary"
+      (click)="addSpeaker()">
+
+      Add Speaker
+
+    </button>
+
+  </div>
+
+  <div class="card shadow p-4">
+
+    <h3 class="mb-3">
+      Speaker List
+    </h3>
+
+    <table
+      class="table table-bordered">
+
+      <thead>
+
+        <tr>
+
+          <th>Name</th>
+
+          <th width="150">
+            Action
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="let speaker of speakers">
+
+          <td>
+            {{ speaker.speakerName }}
+          </td>
+
+          <td>
+
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteSpeaker(
+                speaker.speakerId
+              )">
+
+              Delete
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
